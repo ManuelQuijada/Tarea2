@@ -8,11 +8,12 @@ using namespace std;
 
 int cont = 0;
 
-string info (string data){
+void info (string sol, string packargv){
     int i = 0;
+    string data = "ping " + sol + " -c " + packargv;
     char buffer[100];
     string result = "";
-    FILE* pipe = popen(data.c_str(), "r");
+    FILE* pipe = popen(sol.c_str(), "r");
     if(!pipe){
         cout << "No se pudo ejecutar" << endl;
     }
@@ -21,10 +22,32 @@ string info (string data){
             result +=buffer;
     }
     pclose(pipe);
-    return result;
+    string packetr = "";
+    int busqueda = 0;
+    for (int i= 0 ; i< result.length(); i++){
+        if (ls[i] == ','){
+            for(int j=i+2; result[j]!= ' '; j++){
+                packetr += result[j];
+            }
+            break;
+        }
+    }
+    string valor;
+    int packt = atoi(argv[2]);
+    int pack = stoi(packetr);
+    int packresu = packt - pack;
+    if (pack>0){
+        valor = "UP";
+    }else{
+        valor = "DOWN";
+    }
+    for (int i= 0; i<c_lineas; i++){
+        cout << lista[i] << "     " << packt << "   " << pack << "   " << packresu << "   " << valor << endl;
+    }
 }
 
 int main(int argc, char *argv[]){
+    string packa = argv[2];
     int i = 0;
     int c_lineas = 0;
     ifstream cantidad(argv[1]);
@@ -43,17 +66,17 @@ int main(int argc, char *argv[]){
         i++;
     }
     cantip.close();
-    string data;
+    //string data;
     thread threads[c_lineas];
     for (i=0; i < c_lineas; i++) {
-        data = "ping " + lista[i] + " -c " + argv[2];
-        threads[i] = thread(info, data);
+        //data = "ping " + lista[i] + " -c " + argv[2];
+        threads[i] = thread(info, lista[i], packa);
     }
 
     for (i=0; i< c_lineas; i++) {
         threads[i].join();
     }
-    string packetr = "";
+    /*string packetr = "";
     string ls = info("ls");
     int busqueda = 0;
     for (int i= 0 ; i< ls.length(); i++){
@@ -75,6 +98,6 @@ int main(int argc, char *argv[]){
     }
     for (int i= 0; i<c_lineas; i++){
         cout << lista[i] << "     " << packt << "   " << pack << "   " << packresu << "   " << valor << endl;
-    }
+    }*/
     return 0;
 }
