@@ -25,7 +25,6 @@ void info (string sol, string packargv){
     pclose(pipe);
     //Busqueda para sacar los paquetes recibidos
     string packetr = "";
-    int busqueda = 0;
     for (int i= 0 ; i< result.length(); i++){
         if (result[i] == ','){
             for(int j=i+2; result[j]!= ' '; j++){
