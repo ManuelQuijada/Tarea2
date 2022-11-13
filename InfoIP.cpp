@@ -43,7 +43,7 @@ void info (string sol, string packargv){
     }
     mymutex.lock();
     cout << sol;
-    int large = 13-sol.length();
+    int large = 15-sol.length();
     for (int i=0;i<large;i++){
         cout<<" ";
     }
