@@ -25,7 +25,7 @@ void info (string sol, string packargv){
     string packetr = "";
     int busqueda = 0;
     for (int i= 0 ; i< result.length(); i++){
-        if (ls[i] == ','){
+        if (result[i] == ','){
             for(int j=i+2; result[j]!= ' '; j++){
                 packetr += result[j];
             }
@@ -33,7 +33,7 @@ void info (string sol, string packargv){
         }
     }
     string valor;
-    int packt = atoi(argv[2]);
+    int packt = atoi(packargv);
     int pack = stoi(packetr);
     int packresu = packt - pack;
     if (pack>0){
@@ -41,9 +41,7 @@ void info (string sol, string packargv){
     }else{
         valor = "DOWN";
     }
-    for (int i= 0; i<c_lineas; i++){
-        cout << lista[i] << "     " << packt << "   " << pack << "   " << packresu << "   " << valor << endl;
-    }
+    cout << sol << "     " << packt << "   " << pack << "   " << packresu << "   " << valor << endl;
 }
 
 int main(int argc, char *argv[]){
