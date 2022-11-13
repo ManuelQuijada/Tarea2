@@ -5,9 +5,8 @@
 
 using namespace std;
 
-int cont = 0;
-
 void info (string sol, string packargv){
+    cout << sol << endl;
     int i = 0;
     string data = "ping " + sol + " -c " + packargv;
     char buffer[100];
@@ -66,6 +65,7 @@ int main(int argc, char *argv[]){
     //string data;
     thread threads[c_lineas];
     for (i=0; i < c_lineas; i++) {
+        cout << lista[i] << endl;
         //data = "ping " + lista[i] + " -c " + argv[2];
         threads[i] = thread(info, lista[i], packa);
     }
