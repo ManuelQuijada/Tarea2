@@ -13,6 +13,7 @@ void info (string sol, string packargv){
     string data = "ping " + sol + " -c " + packargv;
     char buffer[100];
     string result = "";
+    //Creacion de parametros a tipo archivo
     FILE* pipe = popen(data.c_str(), "r");
     if(!pipe){
         cout << "No se pudo ejecutar" << endl;
@@ -22,6 +23,7 @@ void info (string sol, string packargv){
             result +=buffer;
     }
     pclose(pipe);
+    //Busqueda para sacar los paquetes recibidos
     string packetr = "";
     int busqueda = 0;
     for (int i= 0 ; i< result.length(); i++){
@@ -33,9 +35,9 @@ void info (string sol, string packargv){
         }
     }
     string valor;
-    int packt = stoi(packargv);
-    int pack = stoi(packetr);
-    int packresu = packt - pack;
+    int packt = stoi(packargv); //conversion de paquetes transmitidos de string a int
+    int pack = stoi(packetr); // conversion de paquete recibidos de string a int 
+    int packresu = packt - pack; // valor correspondiente a la cantidad de paquetes perdidos
     if (pack>0){
         valor = "UP";
     }else{
@@ -43,7 +45,7 @@ void info (string sol, string packargv){
     }
     mymutex.lock();
     cout << sol;
-    int large = 15-sol.length();
+    int large = 15-sol.length();// cantidad de espacios entre la muestra en pantalla de la ip y los paquetes transmitidos
     for (int i=0;i<large;i++){
         cout<<" ";
     }
@@ -55,6 +57,7 @@ int main(int argc, char *argv[]){
     string packa = argv[2];
     int i = 0;
     int c_lineas = 0;
+    //Cantidad de lineas que presenta el archvio txt
     ifstream cantidad(argv[1]);
     string lineas;
     while(getline(cantidad, lineas)){
@@ -71,6 +74,7 @@ int main(int argc, char *argv[]){
         i++;
     }
     cantip.close();
+    //Inicializacion de los hilos a ocupar
     thread threads[c_lineas];
     for (i=0; i < c_lineas; i++) {
         threads[i] = thread(info, lista[i], packa);
