@@ -2,16 +2,18 @@
 #include<thread>
 #include<fstream>
 #include<string>
+#include<mutex>
 
 using namespace std;
 
+mutex mymutex;
+
 void info (string sol, string packargv){
-    cout << sol << endl;
     int i = 0;
     string data = "ping " + sol + " -c " + packargv;
     char buffer[100];
     string result = "";
-    FILE* pipe = popen(sol.c_str(), "r");
+    FILE* pipe = popen(data.c_str(), "r");
     if(!pipe){
         cout << "No se pudo ejecutar" << endl;
     }
@@ -39,7 +41,9 @@ void info (string sol, string packargv){
     }else{
         valor = "DOWN";
     }
+    mymutex.lock();
     cout << sol << "     " << packt << "   " << pack << "   " << packresu << "   " << valor << endl;
+    mymutex.unlock();
 }
 
 int main(int argc, char *argv[]){
