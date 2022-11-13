@@ -26,6 +26,8 @@ void info (string sol, string packargv){
     //Busqueda para sacar los paquetes recibidos
     string packetr = "";
     for (int i= 0 ; i< result.length(); i++){
+        //utilizando la busqueda de la coma, de esta manera se busca la primera coma
+        // y luego se busca hasta que aparesca un valor y no un espacio.
         if (result[i] == ','){
             for(int j=i+2; result[j]!= ' '; j++){
                 packetr += result[j];
@@ -36,7 +38,7 @@ void info (string sol, string packargv){
     string valor;
     int packt = stoi(packargv); //conversion de paquetes transmitidos de string a int
     int pack = stoi(packetr); // conversion de paquete recibidos de string a int 
-    int packresu = packt - pack; // valor correspondiente a la cantidad de paquetes perdidos
+    int packresu = packt - pack; // valor correspondiente a la cantidad de paquetes recibido
     if (pack>0){
         valor = "UP";
     }else{
@@ -66,6 +68,7 @@ int main(int argc, char *argv[]){
     cout << "IP           Trans.      Rec.     Perd.      Estado"<< endl;
     cout << "---------------------------------------------------"<< endl;
     string lista[c_lineas];
+    //Se asigna la ip a lista[i], de esta manera se guarda en la variable
     ifstream cantip(argv[1]);
     string tip;
     while(getline(cantip,tip)){
