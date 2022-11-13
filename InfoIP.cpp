@@ -47,7 +47,7 @@ void info (string sol, string packargv){
     for (int i=0;i<large;i++){
         cout<<" ";
     }
-    cout << packt << "   " << pack << "   " << packresu << "   " << valor << endl;
+    cout << packt << "          " << pack << "          " << packresu << "          " << valor << endl;
     mymutex.unlock();
 }
 
