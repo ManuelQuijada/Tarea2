@@ -33,7 +33,7 @@ void info (string sol, string packargv){
         }
     }
     string valor;
-    int packt = atoi(packargv);
+    int packt = stoi(packargv);
     int pack = stoi(packetr);
     int packresu = packt - pack;
     if (pack>0){
