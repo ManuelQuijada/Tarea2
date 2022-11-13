@@ -42,7 +42,12 @@ void info (string sol, string packargv){
         valor = "DOWN";
     }
     mymutex.lock();
-    cout << sol << "     " << packt << "   " << pack << "   " << packresu << "   " << valor << endl;
+    cout << sol;
+    int large = 13-sol.length();
+    for (int i=0;i<large;i++){
+        cout<<" ";
+    }
+    cout << packt << "   " << pack << "   " << packresu << "   " << valor << endl;
     mymutex.unlock();
 }
 
@@ -66,39 +71,13 @@ int main(int argc, char *argv[]){
         i++;
     }
     cantip.close();
-    //string data;
     thread threads[c_lineas];
     for (i=0; i < c_lineas; i++) {
-        cout << lista[i] << endl;
-        //data = "ping " + lista[i] + " -c " + argv[2];
         threads[i] = thread(info, lista[i], packa);
     }
 
     for (i=0; i< c_lineas; i++) {
         threads[i].join();
     }
-    /*string packetr = "";
-    string ls = info("ls");
-    int busqueda = 0;
-    for (int i= 0 ; i< ls.length(); i++){
-        if (ls[i] == ','){
-            for(int j=i+2; ls[j]!= ' '; j++){
-                packetr += ls[j];
-            }
-            break;
-        }
-    }
-    string valor;
-    int packt = atoi(argv[2]);
-    int pack = stoi(packetr);
-    int packresu = packt - pack;
-    if (pack>0){
-        valor = "UP";
-    }else{
-        valor = "DOWN";
-    }
-    for (int i= 0; i<c_lineas; i++){
-        cout << lista[i] << "     " << packt << "   " << pack << "   " << packresu << "   " << valor << endl;
-    }*/
     return 0;
 }
